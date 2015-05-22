@@ -1,0 +1,76 @@
+<h2 class="title well-info">Grabación</h2>
+  <div class="well">
+    <form action="/gestion/grabaciones/<%= grab.id %>/edit" method="post" id="editgrab">
+      <input type="hidden" name="_method" value="put"/>
+      <input type="hidden" name="idgrab" value="<%= grab.id %>"/>
+      <div class="row">
+        <div class="col-xs-4">
+          <label>Usuario:</label>
+        </div>
+        <div class="col-xs-6">
+          <input class="form-control" type="number" min="1" name="userid" value="<%= grab.userid %>"/>
+        </div>
+      </div>
+      <div class="row top-buffer">
+        <div class="col-xs-4">
+          <label>Radio:</label>
+        </div>
+        <div class="col-xs-6">
+          <input class="form-control" type="text" name="radio" value="<%= grab.radio %>"/>
+        </div>
+      </div>
+      <div class="row top-buffer">
+        <div class="col-xs-4">
+          <label>Fecha:</label>
+        </div>
+        <div class="col-xs-6">
+          <input class="form-control" type="text" name="inicio" value="<%= grab.inicio %>"/>
+        </div>
+      </div>
+      <div class="row top-buffer">
+        <div class="col-xs-4">
+          <label>Duración:</label>
+        </div>
+        <div class="col-xs-6">
+          <input class="form-control" type="number" min="0" name="duracion" value="<%= grab.duracion %>"/>
+        </div>
+      </div>
+      <div class="row top-buffer">
+        <div class="col-xs-4">
+          <label>Enviar por email:</label>
+        </div>
+        <div class="col-xs-6">
+          <input class="form-control" type="number" max="1" min="0" name="email" value="<%= grab.email %>"/>
+        </div>
+      </div>
+      <div class="row top-buffer">
+        <div class="col-xs-4">
+          <label>Leida:</label>
+        </div>
+        <div class="col-xs-6">
+          <input class="form-control" type="number" max="1" min="0" name="leido" value="<%= grab.leido %>"/>
+        </div>
+      </div>
+      <div class="row top-buffer">
+        <div class="col-xs-4">
+          <label>Estado:</label>
+        </div>
+        <div class="col-xs-6">
+          <input class="form-control" type="number" max="3" min="0" name="estado" value="<%= grab.estado %>"/>
+        </div>
+      </div>
+    </form>
+   
+    <div class="row top-buffer">
+      <div class="col-xs-2">
+        <button class="btn btn-custom" onclick="confirmarSubmit('¿Editar la grabación con estos datos?','editgrab'); return false;"><i class="glyphicon glyphicon-pencil"></i> Editar</button>
+      </div>
+      <div class="col-xs-2">
+        <form id="delete" action="/gestion/grabaciones/<%= grab.id %>" method="post" id="deletegrab">
+          <input type="hidden" name="_method" value="delete"/>
+          <button class="btn btn-custom" onclick="confirmarSubmit('¿Borrar la grabación?','deletegrab'); return false;"><i class="glyphicon glyphicon-trash"></i> Borrar</button>
+        </form>
+      </div>
+    </div>
+
+</div>

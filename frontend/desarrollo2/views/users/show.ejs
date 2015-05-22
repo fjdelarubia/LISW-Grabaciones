@@ -1,0 +1,55 @@
+<script type="text/javascript">
+function borrar(){
+  alertify.confirm('¿Va a borrar su cuenta. Continuar?', function(e){
+    if(e){
+      $('#delete').submit();
+    }
+  }, 'custom-alert');
+}
+</script>
+
+<h2 class="title well-info">Usuario</h2>
+<div class="well">
+<p>
+  <b>Login:</b>
+  <%= user.login %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= user.name %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= user.email %>
+</p>
+
+<p>
+  <b>Última conexión:</b>
+  <%= user.ultimaConexion %>
+</p>
+
+<p>
+  <b>Última desconexión:</b>
+  <%= user.ultimaDesconexion %>
+</p>
+
+<p>
+  <b>Grabaciones restantes:</b>
+  <%= user.grabaciones %>
+</p>
+
+<% if (session.user && session.user.id == user.id) {%>
+  <div class="row">
+   <div class="col-xs-2">
+   <a href="/users/<%= user.id %>/edit" class="btn btn-custom"><i class="glyphicon glyphicon-pencil"></i> Editar </a>
+   </div><div>
+   <form id="delete" action="/users" method="post">
+   <input type="hidden" name="_method" value="delete"/>
+   <button class="btn btn-custom" onclick="borrar(); return false;"><i class="glyphicon glyphicon-trash"></i> Borrar</button>
+   </form>
+   </div>
+  </div>
+<% } %>
+</div>

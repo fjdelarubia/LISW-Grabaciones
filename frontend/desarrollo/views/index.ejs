@@ -1,0 +1,49 @@
+
+<h3>Bienvenido a LISW </h3>
+
+<h3><u>Servicio de Grabación de Programas de Radio</u></h3>
+<p>
+Resumen:
+Con frecuencia escuchamos la radio por internet, y algunos días no podemos escuchar
+nuestro programa favorito. Algunas emisoras permiten descargar programas, ya emitidos,
+en formatos mp3 o parecidos. Por ejemplo, en Vaughan Radio podemos escuchar la emisora en
+http://vaughanradio.com/reproductor y esa emisora nos proporciona algunos de sus programas en
+http://vaughan.ivoox.com
+</p>
+
+<img src="/images/arquitectura.png"></img>
+
+<p>
+pero los programas en mp3 que nos proporciona
+son solo de algunos programas, y no son programas completos.
+En este caso de estudio se proporcionará un servicio que permita grabar emisoras de radio
+durante un periodo de tiempo que no deberá ser mayor de 30 minutos, esa grabación se
+almacenara en algún formato popular. Esa grabación podrá ser descargada o será enviada
+por correo al que haya solicitado el servicio. Algunas aplicaciones (por ejemplo XstreamRadio) ya permiten hacer esto 
+en nuestro ordenador, pero la ventaja de nuestra nueva aplicación, es que no deberemos tener encendido nuestro ordenador
+ejecutando esas aplicaciones, para poder grabar nuestro programa.
+
+<p>
+Será un servidor, que soporta nuestro servicio, quien se encarga de hacer la grabación.
+Además esta solución permite hacer esas descargas desde PDA o móviles. Funcionalidad del Servicio de Grabación
+El cliente de este servicio identificará la emisorá de radio de la que se quiere grabar, y las horas de comienzo y
+finalización de grabación, y la forma en la que va a recuperar lagrabación (mas adelante se proponen algunas alternativas).
+Para poder soportar la recepción de streams de radio podemos emplear Java Media Framework
+(http://java.sun.com/javase/technologies/desktop/media/jmf/reference/api/index.html) que
+nos da soporte para poder descargar esos tipos de streamer y almacenarlos en formatosMPEG o WAV.
+</p>
+
+<img src="/images/servicio.png"></img>
+
+<p>
+En cuanto a cómo proporcionarle al cliente la grabación, se deberá elegir entre una o varias soluciones:
+</p>
+<ul>
+<li>enviar por correo electrónico el fichero de la grabación </li>
+<li> almacenar los ficheros con una cierta fecha de caducidad, a partir de la cual serán destruidos, y el cliente podrá descargar(con http o ftp) </li>
+<li> u otro servicio que permita recibir ese streamer grabado sin tener que descargarl o (por ejemplo para poder escucharlo en móviles). </li>
+
+<p>
+En cuanto al acceso a ese servicio, se elijará entre alternativas como proporcionar una página web que
+permita que el cliente demande la grabación, o un servicio web al que se deberá acceder con algún tipo de aplicación cliente sencilla
+</p>

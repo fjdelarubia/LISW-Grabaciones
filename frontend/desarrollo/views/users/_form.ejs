@@ -1,0 +1,96 @@
+
+<script language="javascript">
+function borra(e){
+e.value="";  
+}
+</script>
+<script>
+   function validarFormulario(){
+    var login = document.getElementById('user_login').value;
+    var nombre = document.getElementById('user_name').value;
+    var email = document.getElementById('user_email').value;
+    var pw1 = document.getElementById('user_password').value;    
+    var pw2 = document.getElementById('user_confirm_password').value;
+    if(!pw1 || !pw2 || !login || !nombre || !email){
+         alertify.alert('Debe rellenar todos los campos', function(){}, 'custom-alert');
+    }else{
+      if(pw1 != pw2){
+         alertify.alert('Los passwords introducidos no coinciden.',function(){},'custom-alert');
+      }else{
+         if(!document.getElementById('accept').checked){
+          alertify.alert("Tienes que aceptar las condiciones de uso",function(){},'custom-alert');
+         }else{
+         document.getElementById('Registrarse').submit();
+       }
+      }
+    }
+   }
+</script>
+
+<fieldset>
+<div class="well">
+<div class="row">
+<div class="col-xs-4">  
+<label class="control-label">Login</label>
+</div>
+<div class="col-xs-5">
+<input type="text" class="form-control" id="user_login" name="user[login]" value="<%= user.login || '' %>" rel="popover" data-content="Elige un login" data-original-title="Login" required>
+</div>
+</div>
+
+<div class="row top-buffer">
+<div class="col-xs-4">
+<label class="control-label">Nombre</label>
+</div>
+<div class="col-xs-5">
+<input type="text" class="form-control" id="user_name" name="user[name]" value="<%= user.name || '' %>" rel="popover" data-content="¿Cuál es tu nombre?" data-original-title="Nombre" required>
+</div>
+</div>
+
+<div class="row top-buffer">
+<div class="col-xs-4">
+<label class="control-label">Email</label>
+</div>
+<div class="col-xs-5">
+<input type="text" class="form-control" id="user_email" name="user[email]" value="<%= user.email || '' %>" rel="popover" data-content="¿Cuál es tu email?" data-original-title="Email" required>
+</div>
+</div>
+
+<div class="row top-buffer">
+<div class="col-xs-4">
+<label class="control-label">Password</label>
+</div>
+<div class="col-xs-5">
+<input type="password" class="form-control" id="user_password" name="user[password]" onclick="return borra(this);" rel="popover" data-content="Una contraseña de tu elección" data-original-title="Contraseña" required>
+</div>
+</div>
+
+<div class="row top-buffer">
+<div class="col-xs-4">
+<label class="control-label">Confirmar password</label>
+</div>
+<div class="col-xs-5">
+<input type="password" class="form-control" id="user_confirm_password" name="user[confirm]" onclick="return borra(this);" rel="popover" data-content="Tiene que coincidir con la primera" data-original-title="Repetir contraseña" required>
+</div>
+</div>
+
+<% if(! session.user ){ %>
+<div class="row top-buffer">
+  <div class="col-xs-1" style="margin-right:-30px;">
+    <input id="accept" type="checkbox" name="accept" style="width: 1.5em; height: 1.5em;">
+  </div>
+  <div class="col-xs-8" style="padding-top:5px;">
+    Acepto los <a href="/uso/condiciones">términos y condiciones</a> de uso del servicio.
+  </div>
+</div>
+<% } %>
+
+<div class="row top-buffer">
+<div class="col-xs-4">
+<button type="submit" class="btn btn-custom" onclick="validarFormulario(); return false;">Terminar</button>
+</div>
+</div>
+
+</div>
+
+</fieldset>

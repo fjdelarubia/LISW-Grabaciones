@@ -1,0 +1,127 @@
+<script type="text/javascript">
+function confirmarBorrado(id){
+  var idform = "borrar"+id;
+  alertify.confirm('¿Está seguro de que desea borrar esta petición?', function(e){
+  if(e){
+    document.getElementById(idform).submit();
+  }
+},'custom-alert');
+}
+function filter(){
+  var show = $("#filter option:selected").val();
+  var index = localStorage.getItem("index") || 1;
+  localStorage.setItem('show', show);
+  window.location = "/grabaciones?show="+show+"&index="+index;
+}
+function index(i){
+  localStorage.setItem('index',i);
+  var show = localStorage.getItem("show");
+  window.location = "/grabaciones?index="+i+"&show="+show;
+}
+</script>
+<script type="text/javascript">
+setInterval(function(){
+        $("#grabando").toggleClass("grabando");
+     },1000);
+</script>
+<div class="well" style="left:10%;">
+  <div class="row">
+    <div class="col-xs-1">
+      <div style="margin-top:5px;">Mostrar:</div> 
+    </div>
+    <div class="col-xs-4">
+      <select id="filter" class="form-control" onchange="filter();">
+        <% if(selected=="todas"){ %>
+        <option value="todas" selected>Todas</option>
+        <% }else{ %>
+        <option value="todas">Todas</option>
+        <% } %>
+        <% if(selected=="espera"){ %>
+        <option value="espera" selected>En espera</option>
+        <% }else{ %>
+        <option value="espera">En espera</option>
+        <% } %>
+        <% if(selected=="grabando"){ %>
+        <option value="grabando" selected>En curso</option>
+        <% }else{ %>
+        <option value="grabando">En curso</option>
+        <% } %>
+        <% if(selected=="listas"){ %>
+        <option value="listas" selected>Listas</option>
+        <% }else{ %>
+        <option value="listas">Listas</option>
+        <% } %>
+        <% if(selected=="error"){ %>
+        <option value="error" selected>Fallidas</option>
+        <% }else{ %>
+        <option value="error">Fallidas</option>
+        <% } %>
+      </select>
+    </div>
+  </div>
+  <br>
+<% for(var i in grabs){ %>
+<div class="well" style="width:90%; left:5%;" id="grabacion<%= grabs[i].id %>">
+  <div class="row">
+    <p>Radio: <span><img src="/images/emisoras/<%= grabs[i].radio %>.jpg" class="icono"></span></p>
+  </div>
+  <div class="row">
+    <p>Inicio: <%= grabs[i].inicio.toLocaleString() %></p>
+  </div>
+  <div class="row">
+    <p>Duracion: <%= grabs[i].duracion %></p>
+  </div>
+  <div class="row">
+    <p>Por email: <%- getLeida(grabs[i].email) %></p>
+  </div>
+  <div class="row">
+    <p class="estado-grab">Estado: <%- getEstado(grabs[i].estado) %></p>
+  </div>
+  <div class="row">
+    <p>Leida: <%- getLeida(grabs[i].leido ) %></p>
+  </div>
+  <div class="row">
+    <% if(grabs[i].estado == 0){ %>
+    <div class="col-xs-3 col-md-2">
+      <a href="/grabaciones/<%= grabs[i].id %>/edit" class="btn btn-violet"><i class="glyphicon glyphicon-pencil"></i> Editar</a>
+    </div>
+    <% } %>
+    <div class="col-xs-3 col-md-2">
+      <form method="post" action="/grabar" id="borrar<%= grabs[i].id %>">
+        <input type="hidden" name="_method" value="delete"/>
+        <input type="hidden" name="grabid" value="<%= grabs[i].id %>"/>
+        <button class="btn btn-violet" onclick="confirmarBorrado(<%= grabs[i].id %>); return false;"/><i class="glyphicon glyphicon-trash"></i> Borrar</input>
+      </form>
+    </div>
+  </div>
+</div>
+    <hr>
+<% } %>
+
+<nav>
+  <ul class="pagination">
+   <% if(index > 1){ %> 
+    <li>
+      <a href="#" onclick="index(<%= index-1 %>);" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <% } %>
+
+    <% var i; %>
+    <% for(i=index-2; i<= index-(-2); i++){ %>
+    <% if(i>0 && i <= pages){ %>
+    <li><a href="#" onclick="index(<%= i %>);"><%= i %></a></li>
+    <% } %>
+    <% } %>
+
+    <% if(index < pages){ %>
+    <li>
+      <a href="#" onclick="index(<%= index-(-1) %>);" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+    <% } %>
+  </ul>
+</nav>
+</div>

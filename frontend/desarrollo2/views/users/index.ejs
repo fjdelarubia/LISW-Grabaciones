@@ -1,0 +1,47 @@
+
+<header>
+  <h2> Usuarios </h2>
+</header>
+<hr />
+<article>
+  <div class="form-inline">
+    <label><u>Login</u></label>
+    <label style="margin-left: 60px;"><u>Nombre</u></label>
+    <label style="margin-left: 50px;"><u>Email</u></label>
+    <label></label>
+  </div>
+ <hr />
+ <br>
+<% for (var i in users) { %>
+     <label> <%= users[i].login %>  </label>
+    <div style="position: relative; left: 100px; top:-25px;">
+     <label> <%= users[i].name %>  </label>
+    </div>
+    <div style="position: relative; left: 200px; top:-50px;">
+     <label> <%= users[i].email %> </label>
+    </div>
+    <div style="position: relative; left: 400px; top:-80px;">
+       <% var formname = 'fui' + i; %>
+       <form method='post' action='/users/<%= users[i].id %>' id='<%= formname %>'>
+          <input type='hidden' name='_method' value='delete'>
+          <a href="/users/<%= users[i].id %>" class="btn btn-success"><i class="glyphicon glyphicon-eye-open icon-white"></i> Ver </a>
+          <% if (session.user && session.user.id == users[i].id) {%>
+             <a href="/users/<%= users[i].id %>/edit" class="btn btn-primary"><i class="glyphicon glyphicon-pencil icon-white"></i> Editar </a>
+          <% } %>
+
+          <% if (session.user && session.user.id == users[i].id) { %>
+             <a href="" onclick="confirmarSubmit('¿Seguro que desea borrar el usuario?', 
+                                                 '<%= formname %>'); return false" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Borrar </a>
+          <% } %>
+
+       </form>
+    </div>
+  <hr style="margin-top: -60px;"></hr>
+<%  }; %>
+</article>
+
+<% if(!session.user){ %>
+<footer>
+  <nav> <a href="/users/new" class="btn btn-primary"><i class="glyphicon glyphicon-plus icon-white"></i> Crear nuevo Usuario </a> </nav>
+</footer>
+<% } %>

@@ -1,0 +1,84 @@
+<script type="text/javascript">
+function confirmarBorrado(id){
+  var idform = "borrar"+id;
+  alertify.confirm('¿Está seguro de que desea borrar esta petición?', function(e){
+  if(e){
+    document.getElementById(idform).submit();
+  }
+},'custom-alert');
+}
+</script>
+<script type="text/javascript">
+setInterval(function(){
+        $("#grabando").toggleClass("grabando");
+     },1000);
+</script>
+<% if(grabs.length == 0){ %>
+<h3 class="title">No hay grabaciones pendientes.</h3>
+<% }else{ %>
+<div class="well" style="left:10%;">
+<% for(var i in grabs){ %>
+<div class="well" style="width:90%; left:5%;" id="grabacion<%= grabs[i].id %>">
+  <div class="row">
+    <p>Radio: <span><img src="/images/emisoras/<%= grabs[i].radio %>.jpg" class="icono"></span></p>
+  </div>
+  <div class="row">
+    <p>Inicio: <%= grabs[i].inicio.toLocaleString() %></p>
+  </div>
+  <div class="row">
+    <p>Duracion: <%= grabs[i].duracion %></p>
+  </div>
+  <div class="row">
+    <p>Por email: <%- getLeida(grabs[i].email) %></p>
+  </div>
+  <div class="row">
+    <p class="estado-grab">Estado: <%- getEstado(grabs[i].estado) %></p>
+  </div>
+  <div class="row">
+    <p>Leida: <%- getLeida(grabs[i].leido ) %></p>
+  </div>
+  <div class="row">
+    <div class="col-xs-2">
+      <a href="/grabaciones/<%= grabs[i].id %>/edit" class="btn btn-custom"><i class="glyphicon glyphicon-pencil"></i> Editar</a>
+    </div>
+    <div class="col-xs-2">
+      <form method="post" action="/grabar" id="borrar<%= grabs[i].id %>">
+        <input type="hidden" name="_method" value="delete"/>
+        <input type="hidden" name="grabid" value="<%= grabs[i].id %>"/>
+        <button class="btn btn-custom" onclick="confirmarBorrado(<%= grabs[i].id %>); return false;"/><i class="glyphicon glyphicon-trash"></i> Borrar</input>
+      </form>
+    </div>
+  </div>
+</div>
+    <hr>
+<% } %>
+
+<nav>
+  <ul class="pagination">
+   <% if(index > 1){ %> 
+    <li>
+      <a href="/grabaciones?index=<%= index-1 %>" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <% } %>
+
+    <% var i; %>
+    <% for(i=index-2; i<= index-(-2); i++){ %>
+    <% if(i>0 && i <= pages){ %>
+    <li><a href="/grabaciones?index=<%= i %>"><%= i %></a></li>
+    <% } %>
+    <% } %>
+
+    <% if(index < pages){ %>
+    <li>
+      <a href="/grabaciones?index=<%= index-(-1) %>" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+    <% } %>
+  </ul>
+</nav>
+</div>
+
+<% } %>

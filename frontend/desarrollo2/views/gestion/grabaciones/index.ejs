@@ -1,0 +1,65 @@
+<div style="background: #E3E3E3; padding: 20px;">
+<header>
+  <h2> Usuarios </h2>
+</header>
+<hr />
+<article>
+  <div class="form-inline">
+    <label><u>Usuario</u></label>
+    <label style="margin-left: 75px;"><u>Radio</u></label>
+    <label style="margin-left: 100px;"><u>Fecha</u></label>
+    <label style="margin-left: 140px;"><u>Duración</u></label>
+  </div>
+ <hr />
+ <br>
+<% for (var i in grabs) { %>
+     <label> <%= grabs[i].userid %> </label>
+    <div style="position: relative; left: 140px; top:-25px">
+     <label> <%= grabs[i].radio %>  </label>
+    </div>
+    <div style="position: relative; left: 260px; top:-50px;">
+     <label> <%= grabs[i].inicio.toLocaleString() %>  </label>
+    </div>
+    <div style="position: relative; left: 470px; top:-80px;">
+     <label> <%= grabs[i].duracion %><span>min</span> </label>
+    </div>
+    <div style="position: relative; left: 780px; top:-110px;">
+       <% var formname = 'fui' + i; %>
+       <form method='post' action='/gestion/grabaciones/<%= grabs[i].id %>' id='<%= formname %>'>
+          <input type='hidden' name='_method' value='delete'>
+          <a href="/gestion/grabaciones/<%= grabs[i].id %>/edit" class="btn btn-success"><i class="glyphicon glyphicon-eye-open icon-white"></i> Ver </a>
+             <a href="" onclick="confirmarSubmit('¿Borrar la grabación?', 
+                                                 '<%= formname %>'); return false" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Borrar </a>
+       </form>
+    </div>
+  <hr style="margin-top: -100px;"></hr>
+<%  }; %>
+</article>
+</div>
+<nav>
+  <ul class="pagination">
+   <% if(index > 1){ %> 
+    <li>
+      <a href="/gestion/usuarios?index=<%= index-1 %>" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <% } %>
+
+    <% var i; %>
+    <% for(i=index-2; i<= index-(-2); i++){ %>
+    <% if(i>0 && i <= pages){ %>
+    <li><a href="/gestion/usuarios?index=<%= i %>"><%= i %></a></li>
+    <% } %>
+    <% } %>
+
+    <% if(index < pages){ %>
+    <li>
+      <a href="/gestion/usuarios?index=<%= index-(-1) %>" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+    <% } %>
+  </ul>
+</nav>
+</div>

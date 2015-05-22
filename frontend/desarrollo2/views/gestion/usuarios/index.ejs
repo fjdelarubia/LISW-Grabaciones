@@ -1,0 +1,66 @@
+<div style="background: #E3E3E3; padding: 20px;">
+<header>
+  <h2> Usuarios </h2>
+</header>
+<hr />
+<article>
+  <div class="form-inline">
+    <label><u>Rol</u></label>
+    <label style="margin-left: 75px;"><u>Login</u></label>
+    <label style="margin-left: 100px;"><u>Nombre</u></label>
+    <label style="margin-left: 100px;"><u>Email</u></label>
+    <label></label>
+  </div>
+ <hr />
+ <br>
+<% for (var i in users) { %>
+     <label> <%= getRole(users[i].role) %> </label>
+    <div style="position: relative; left: 100px; top:-25px">
+     <label> <%= users[i].login %>  </label>
+    </div>
+    <div style="position: relative; left: 250px; top:-50px;">
+     <label> <%= users[i].name %>  </label>
+    </div>
+    <div style="position: relative; left: 400px; top:-80px;">
+     <label> <%= users[i].email %> </label>
+    </div>
+    <div style="position: relative; left: 740px; top:-110px;">
+       <% var formname = 'fui' + i; %>
+       <form method='post' action='/gestion/usuarios/<%= users[i].id %>' id='<%= formname %>'>
+          <input type='hidden' name='_method' value='delete'>
+          <a href="/gestion/usuarios/<%= users[i].id %>/edit" class="btn btn-success"><i class="glyphicon glyphicon-eye-open icon-white"></i> Ver </a>
+             <a href="" onclick="confirmarSubmit('¿Borrar el usuario?', 
+                                                 '<%= formname %>'); return false" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Borrar </a>
+       </form>
+    </div>
+  <hr style="margin-top: -100px;"></hr>
+<%  }; %>
+</article>
+</div>
+<nav>
+  <ul class="pagination">
+   <% if(index > 1){ %> 
+    <li>
+      <a href="/gestion/usuarios?index=<%= index-1 %>" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <% } %>
+
+    <% var i; %>
+    <% for(i=index-2; i<= index-(-2); i++){ %>
+    <% if(i>0 && i <= pages){ %>
+    <li><a href="/gestion/usuarios?index=<%= i %>"><%= i %></a></li>
+    <% } %>
+    <% } %>
+
+    <% if(index < pages){ %>
+    <li>
+      <a href="/gestion/usuarios?index=<%= index-(-1) %>" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+    <% } %>
+  </ul>
+</nav>
+</div>

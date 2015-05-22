@@ -1,0 +1,39 @@
+<% if(grabs.length == 0){ %>
+<div class="row">
+	<div class="col-xs-6">
+		<h3 class="title">No hay notificaciones.</h3>
+	</div>
+</div>
+<% }else{ %>
+<div class="row">
+	<div class="col-xs-6">
+		<h3 class="title">Grabaciones listas:</h3>
+	</div>
+</div>
+<div id="grabaciones-listas">
+<% for(var i in grabs){ %>
+<div class="row no-buffer notification">
+	<div class="col-xs-3 col-md-1">
+		<label>Grabación disponible:</label>
+	</div>
+	<div class="col-xs-5 col-md-3">
+		<img src="/images/emisoras/<%= grabs[i].radio %>.jpg" class="icono">  <label>  <%= new Date(grabs[i].inicio).toLocaleString() %>  |  <%= grabs[i].duracion %> minutos</label>
+	</div>
+	<div class="col-xs-4 col-md-3 no-gutter">
+		<div class="col-xs-2">
+			<a class="btn btn-danger" href="<%= url_almacenamiento %>delete/<%= grabs[i].hash %>/<%= grabs[i].id %>"><i class="glyphicon glyphicon-trash"></i></a>
+		</div>
+		<div class="col-xs-6">
+			<a class="btn btn-custom-reverse" href="<%= url_almacenamiento %>grabaciones/<%= grabs[i].id %>.mp3"><i class="glyphicon glyphicon-save" style="vertical-align: bottom;"></i> Descargar</a>
+		</div>
+		<div class="col-xs-6">
+			<a class="btn btn-custom-reverse" href="#" onclick='document.getElementById("play<%= grabs[i].id %>").src="<%= url_almacenamiento %>stream/<%= grabs[i].id %>";'><i class="glyphicon glyphicon-headphones" style="vertical-align: bottom;"></i> Escuchar</a>
+		</div>
+	</div>
+	<div class="col-md-3">
+    	<iframe id="play<%= grabs[i].id %>" scrolling="no" style="width: 250px; height: 30px;" frameBorder="0"></iframe>
+	</div>
+</div>
+<% } %>
+</div>
+<% } %>

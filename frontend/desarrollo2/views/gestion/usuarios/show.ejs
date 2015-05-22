@@ -1,0 +1,84 @@
+<h2 class="title well-info">Usuario</h2>
+  <div class="well">
+    <form action="/gestion/usuarios/<%= user.id %>/edit" method="post" id="edituser">
+      <input type="hidden" name="_method" value="put"/>
+      <input type="hidden" name="iduser" value="<%= user.id %>"/>
+      <div class="row">
+        <div class="col-xs-4">
+          <label>Rol:</label>
+        </div>
+        <div class="col-xs-6">
+          <input class="form-control" type="number" max="1" min="0" name="rol" value="<%= user.role %>"/>
+        </div>
+      </div>
+      <div class="row top-buffer">
+        <div class="col-xs-4">
+          <label>Login:</label>
+        </div>
+        <div class="col-xs-6">
+          <input class="form-control" type="text" name="login" value="<%= user.login %>"/>
+        </div>
+      </div>
+      <div class="row top-buffer">
+        <div class="col-xs-4">
+          <label>Password:</label>
+        </div>
+        <div class="col-xs-6">
+          <input class="form-control" type="text" name="password" value=""/>
+        </div>
+      </div>
+      <div class="row top-buffer">
+        <div class="col-xs-4">
+          <label>Nombre:</label>
+        </div>
+        <div class="col-xs-6">
+          <input class="form-control" type="text" name="name" value="<%= user.name %>"/>
+        </div>
+      </div>
+      <div class="row top-buffer">
+        <div class="col-xs-4">
+          <label>Email:</label>
+        </div>
+        <div class="col-xs-6">
+          <input class="form-control" type="text" name="email" value="<%= user.email %>"/>
+        </div>
+      </div>
+      <div class="row top-buffer">
+        <div class="col-xs-4">
+          <label>Grabaciones:</label>
+        </div>
+        <div class="col-xs-6">
+          <input class="form-control" type="number" max="20" min="0" name="grabaciones" value="<%= user.grabaciones %>"/>
+        </div>
+      </div>
+      <div class="row top-buffer">
+        <div class="col-xs-4">
+          <label>Confirmado:</label>
+        </div>
+        <div class="col-xs-6">
+          <input class="form-control" type="number" max="1" min="0" name="confirmado" value="<%= user.confirmado %>"/>
+        </div>
+      </div>
+      <div class="row top-buffer">
+        <div class="col-xs-4">
+          <label>Ultima Conexión:</label>
+        </div>
+        <div class="col-xs-6">
+          <input class="form-control" type="text" name="ucon" value="<%= user.ultimaConexion %>"/>
+        </div>
+      </div>
+    </form>
+   
+    <div class="row top-buffer">
+      <div class="col-xs-2">
+        <button class="btn btn-custom" onclick="confirmarSubmit('¿Editar el usuario con estos datos?','edituser'); return false;"><i class="glyphicon glyphicon-pencil"></i> Editar</button>
+      </div>
+      <div class="col-xs-2">
+        <form id="delete" action="/gestion/usuarios/<%= user.id %>" method="post" id="deleteuser">
+          <input type="hidden" name="_method" value="delete"/>
+          <button class="btn btn-custom" onclick="confirmarSubmit('¿Borrar el usuario?','deleteuser'); return false;"><i class="glyphicon glyphicon-trash"></i> Borrar</button>
+        </form>
+      </div>
+    </div>
+
+</div>

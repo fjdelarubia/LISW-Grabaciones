@@ -1,0 +1,43 @@
+<script type="text/javascript">
+	function validar(){
+		var asunto = $("#asunto").val();
+		var contenido = $("#contenido").val();
+		if(!asunto || asunto.length <6 || !contenido || contenido.length <18){
+			alertify.set({ delay: 8000});
+			alertify.error("rellana el formulario con el mínimo de caracteres.");
+			return false;
+		}else{
+			$("#asistencia").submit();
+		}
+	}
+</script>
+<div class="well">
+	<div class="row">
+		<div class="col-xs-8 col-xs-offset-3 col-md-offset-2 col-sm-offset-2">
+			Contactar con el administrador de SGPR
+		</div>
+	</div>
+	<form method="post" action="/uso/contactar" id="asistencia">
+		<div class="row top-buffer">
+			<div class="col-xs-3 col-md-2 col-sm-2">
+				<label class="label-control" for="asunto">Asunto: </label>
+			</div>
+			<div class="col-xs-8">
+				<input id="asunto" class="form-control" type="text" name="asunto"></input>
+			</div>
+		</div>
+		<div class="row top-buffer">
+			<div class="col-xs-3 col-md-2 col-sm-2">
+				<label class="label-control" for="contenido">Tu duda: </label>
+			</div>
+			<div class="col-xs-8">
+				<textarea id="contenido" class="form-control" type="textarea" rows="12" name="contenido" style="font-size: 18px;"></textarea>
+			</div>
+		</div>
+		<div class="row top-buffer">
+			<div class="col-xs-3 col-xs-offset-3 col-md-offset-2 col-sm-offset-2">
+				<button class="btn btn-primary" type="submit" value="Enviar" onclick="return validar();">Enviar</button> 
+			</div>
+		</div>
+	</form>
+</div>

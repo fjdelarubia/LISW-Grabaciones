@@ -1,0 +1,125 @@
+
+<!-- calendario -->
+<script src="/jqueryCalendar/jquery-1.6.2.min.js"></script>
+<script src="/jqueryCalendar/jquery-ui-1.8.15.custom.min.js"></script>
+<link rel="stylesheet" href="/jqueryCalendar/jqueryCalendar.css">
+
+<script>
+  $(function() {
+  	    //gestionar fecha
+        $( "#fecha" ).datepicker({
+        	minDate: new Date(),
+        	maxDate: "+21d"
+        });
+  });
+</script>
+<!-- modificar el idioma -->
+<script>
+ $.datepicker.regional['es'] = {
+ closeText: 'Cerrar',
+ prevText: '<Ant',
+ nextText: 'Sig>',
+ currentText: 'Hoy',
+ monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+ monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+ dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+ dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+ dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+ weekHeader: 'Sm',
+ dateFormat: 'dd/mm/yy',
+ firstDay: 1,
+ isRTL: false,
+ showMonthAfterYear: false,
+ yearSuffix: ''
+ };
+ $.datepicker.setDefaults($.datepicker.regional['es']);
+</script>
+
+
+<div class="row">
+	<div id="header">
+		<h1 class="well-info title">Grabar un programa de radio</h1>
+	</div>
+</div>
+<div class="row">
+	<div id="body">
+        <% if(typeof grab != "undefined"){ %>
+		<form action="/grabaciones/<%= grab.id %>/edit" method="post" class="well">
+            <input type="hidden" name="_method" value="put"/>
+            <% }else{ %>
+            <form action="/grabar" method="post" class="well">
+            <% } %>
+			<div class="row top-buffer">
+        		<div class="col-xs-4 col-ms-4">
+        			<label>Emisora de radio:</label>
+        		</div>
+        		<div class="col-xs-4">
+        			<select name="emisora" class="selectpicker form-control">
+                        <option disabled="disabled" style="color: #fff; background-color:#578999;">Ámbito nacional</option>
+                        <option value="RNE" selected>Radio Nacional</option>
+                        <option value="RNEClass">Radio Clásica</option>
+                        <option disabled="disabled" style="color: #fff; background-color:#578999;">Noticias y deporte</option>
+        				<option value="cadena100">Cadena Cien</option>
+        				<option value="ser">Cadena Ser</option>
+                        <option value="cope">Cope</option>
+                        <option disabled="disabled" style="color: #fff; background-color:#578999;">Pop, Rock & Dance</option>
+        				<option value="los40">Los 40 Principales</option>
+        				<option value="europafm">Europa FM</option>
+        				<option value="ondacero">Onda Cero</option>
+        				<option value="maximafm">Máxima FM</option>
+        			</select>
+        		</div>	
+        	</div>
+        	<div class="row top-buffer">
+        		<div class="col-xs-4 col-md-4">
+        			<label>Fecha de la grabación:</label>
+        		</div>
+        		<div class="col-xs-3 col-md-2">
+        			<input id="fecha" type="text" name="fecha" class="form-control" placeholder="pulsa aquí" required></input>
+        		</div>
+        		<div class="col-xs-5 col-md-6 no-gutter">
+        			<div class="col-xs-4 col-md-3">
+                		<label style="margin-top:5px;">A las :</label>
+                	</div>
+        			<div class="col-xs-4 col-md-4">
+        				<input  type="number" id="hora" name="horas" class="form-control"  min="0" max="23" value="<%= new Date().getHours() + 1 %>" required></input>
+        			</div>
+        			<div class="col-xs-4 col-md-4">
+                        <input  type="number" id="hora" name="minutos" class="form-control"  min="0" max="55" value="<%= Math.floor(new Date().getMinutes()/5)*5 %>" step="5" required></input>
+        			</div>
+        	    </div>
+        	</div>
+        	<div class="row top-buffer">
+        		<div class="col-xs-4 col-md-4">
+        			<label>Duración: (max 60 min)</label>
+        		</div>
+        		<div class="col-xs-3 col-md-2">
+        			<input  type="number" name="duracion" class="form-control"  value="30" min="5" max="60" step="5" required></input>
+        		</div>
+        	</div>
+        	<hr style="border-color: #A3A3A3; margin: 20px -20px 0px;">
+        	<div class="row top-buffer">
+        		<div class="col-xs-12">
+        				<input type="checkbox" name="emailchecked" style="width: 1.5em; height: 1.5em; margin-right:5px;"/><label style="vertical-align: bottom;">Deseo recibir la grabación por correo electrónico</label>
+   				</div>
+        	</div>
+        	<div class="row top-buffer">
+        		<div class="col-xs-4 col-md-2">
+                     <% if(typeof grab == 'undefined') { %>
+        			<button type="submit" class="btn btn-custom"><i class="glyphicon glyphicon-play" style="vertical-align: bottom;"></i> Grabar</button>
+                     <% }else{ %>
+                    <button type="submit" class="btn btn-custom"><i class="glyphicon glyphicon-floppy-saved" style="vertical-align: bottom;"></i> Guardar cambios</button>
+                     <% } %>
+        		</div>
+        	</div>
+		</form>
+	</div>
+</div>
+<div class="row">
+	<div id="footer">
+	</div>
+</div>
+<div class="row">
+	<div id="copyright">
+	</div>
+</div>

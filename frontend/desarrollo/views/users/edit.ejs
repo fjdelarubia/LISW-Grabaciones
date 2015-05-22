@@ -1,0 +1,11 @@
+
+<h2 class="well-info title">Editar Usuario</h2>
+
+
+<form method='post' action='/users/<%= user.id %>'>
+
+  <input type='hidden' name='_method' value='put'>
+
+  <%- include _form.ejs %>
+
+</form>
